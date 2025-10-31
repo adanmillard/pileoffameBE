@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
-import admin from 'firebase-admin';
+import admin from '../firebaseAdmin';
 
 export interface AuthRequest extends Request {
   user?: admin.auth.DecodedIdToken;
@@ -22,8 +22,8 @@ export const verifyFirebaseToken = async (
     console.log('Decoded Firebase Token:', decodedToken.uid);
     req.user = decodedToken;
     next();
-  } catch (error) {
+  } catch (error: any) {
     console.error('Error verifying Firebase token:', error);
-    return res.status(403).json({ message: 'Unauthorized: Invaild token' });
+    return res.status(403).json({ message: 'Unauthorized: Invaild token', error: error.message });
   }
 };
