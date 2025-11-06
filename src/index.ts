@@ -5,6 +5,7 @@ import dashboard from './routes/dashboard';
 import type { Request, Response } from 'express';
 import userRouter from './routes/user';
 import userUpdateRouter from './routes/userUpdated';
+import userGetRouter from './routes/userGet'
 
 dotenv.config();
 const app = express();
@@ -21,6 +22,8 @@ app.use('/dashboard', dashboard);
 app.use('/api/users/sync', userRouter);
 
 app.use('/api/users/update', userUpdateRouter)
+
+app.use('/api/user/information', userGetRouter)
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
